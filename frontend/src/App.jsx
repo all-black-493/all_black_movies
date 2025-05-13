@@ -3,33 +3,32 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
 
+
+const MovieCard = ({title, rating, actors}) => {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
+    <div className="movie-card">
+      <p>
+        {title} - {rating} stars. The actor{(actors ?? []).length > 1? 's':''} of this movie {(actors ?? []).length === 1 ? 'is' : 'are'} {' '}
+        {(actors ?? []).map((actor) => actor.actor_name).join(', ') || 'N/A'} 
         </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
+}
+
+const App = () => {
+  return(
+  
+  <>
+  <h2>Hello</h2>
+  <MovieCard title={'SpiderMan'} rating={3} actors={[{actor_name:'Tobey MaGuire'},{actor_name:'Natasha Romanoff'}]} />
+  <MovieCard title={'Avengers Endgame'} rating={4} actors={[{actor_name:'Robert Downey Junior'}]}/>
+  <MovieCard title={'Moon Knight'} rating={3} actors={[{actor_name:'Oscar Isaac'}]}/>
+  <MovieCard title={'Sentry'} rating={2} actors={[{actor_name:'Chris Evans'}]}/>
+  <MovieCard title={'Avengers Doomsday'} rating={4} actors={[{actor_name:'Letitia Wright'},{actor_name:'Benedict Cumberbatch'}]}/>
+
+  </>    
+  );
 }
 
 export default App
