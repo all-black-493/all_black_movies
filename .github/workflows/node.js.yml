@@ -31,4 +31,4 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -f ./frontend/Dockerfile -t "movies:v1.0" --build-arg SKIP_NPM_INSTALL=true
+          docker build -f ./frontend/Dockerfile -t "movies:v1.0" --build-arg SKIP_NPM_INSTALL=true .
