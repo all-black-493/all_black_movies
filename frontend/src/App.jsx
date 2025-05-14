@@ -5,11 +5,8 @@ import { API_OPTIONS } from './api.js';
 import { Loadspinner } from './components/loadspinner.jsx';
 import MovieCard from './components/MovieCard.jsx';
 import { useDebounce } from 'react-use'
-import { Client } from 'appwrite';
 import { updateSearchCount } from './appwrite.js';
 
-const client = new Client();
-client.setEndpoint('https://fra.cloud.appwrite.io/v1');
 
 const App = () => {
   const[searchTerm, setsearchTerm] = useState('');
