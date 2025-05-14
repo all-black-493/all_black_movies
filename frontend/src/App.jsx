@@ -5,17 +5,27 @@ import { API_OPTIONS } from './api.js';
 import { Loadspinner } from './components/loadspinner.jsx';
 import MovieCard from './components/MovieCard.jsx';
 import { useDebounce } from 'react-use'
-import { updateSearchCount } from './appwrite.js';
+import { getTrendingMovies, updateSearchCount } from './appwrite.js';
 
 
 const App = () => {
   const[searchTerm, setsearchTerm] = useState('');
   const[errorMessage, seterrorMessage] = useState('');
   const[movies, setMovies] = useState([]);
+  const[trendingMovies,setTrendingMovies] = useState([]);
   const[loading, setisLoading] = useState(false);
   const[debouncedsearchTerm, setdebouncesearchTerm]=useState('');
 
   useDebounce(()=>setdebouncesearchTerm(searchTerm), 2000,[searchTerm])
+
+  const loadTrendingMovies = async()=>{
+    try{
+      const result = await getTrendingMovies();
+      setTrendingMovies(result);
+    }catch(error){
+      console.error(`Error fetching trending movies: ${error}`);
+    }
+  }
 
   const fetchmovies = async(query='') => {
     setisLoading(true);
@@ -51,6 +61,10 @@ const App = () => {
   }
 
   useEffect(()=>{
+    loadTrendingMovies();
+  },[])
+  
+  useEffect(()=>{
     fetchmovies(debouncedsearchTerm);
   },[debouncedsearchTerm]);
 
@@ -63,8 +77,16 @@ const App = () => {
           <h1>Lights. Camera. <span className="text-gradient">Stream !</span> </h1>
         <Search searchTerm={searchTerm} setsearchTerm={setsearchTerm} />
         </header>
+
+        
+        {trendingMovies.length>0 && (
+          <section className="trending">
+            <h2>Trending Movies</h2>
+          </section>
+        )}
+
         <section className="all-movies">
-          <h2 className="mt-[40px]">Movies</h2>
+          <h2>Popular Movies</h2>
           <h2>
             {loading ?
             (
