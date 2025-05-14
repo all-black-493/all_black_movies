@@ -33,7 +33,7 @@ const MovieCard = ({movie:
             <span>•</span>
             
             <p className="year">
-            {release_date ? `${release_date.split('-')[0]}-${release_date.split('-')[1]}` : 'N/A'}
+            {release_date ? `${release_date.split('-')[2]}-${release_date.split('-')[1]}-${release_date.split('-')[0]}` : 'N/A'}
             </p>
 
         </div>
