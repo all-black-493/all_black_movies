@@ -4,6 +4,7 @@ import {API_BASE_URL} from './urls.js'
 import { API_OPTIONS } from './api.js';
 import { Loadspinner } from './components/loadspinner.jsx';
 import MovieCard from './components/MovieCard.jsx';
+import { useDebounce } from 'react-use'
 
 const API_KEY= import.meta.env.VITE_TMDB_API_KEY;
 
@@ -12,6 +13,9 @@ const App = () => {
   const[errorMessage, seterrorMessage] = useState('');
   const[movies, setMovies] = useState([]);
   const[loading, setisLoading] = useState(false);
+  const[debouncedsearchTerm, setdebouncesearchTerm]=useState('');
+
+  useDebounce(()=>setdebouncesearchTerm(searchTerm), 2000,[searchTerm])
 
   const fetchmovies = async(query='') => {
     setisLoading(true);
@@ -28,11 +32,12 @@ const App = () => {
       } 
       const data = await response.json();
 
-      if(data.response === 'False'){
+      if(data.results === 'False'){
         seterrorMessage(data.Error)
         setMovies([])
       }
       setMovies(data.results)
+      console.log(data);
 
     }catch(error){
       console.error(`Error Fetching Movies. Error Details: '${error}`);
@@ -43,8 +48,8 @@ const App = () => {
   }
 
   useEffect(()=>{
-    fetchmovies(searchTerm);
-  },[searchTerm]);
+    fetchmovies(debouncedsearchTerm);
+  },[debouncedsearchTerm]);
 
   return (
     <main>
