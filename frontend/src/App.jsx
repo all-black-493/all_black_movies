@@ -5,8 +5,11 @@ import { API_OPTIONS } from './api.js';
 import { Loadspinner } from './components/loadspinner.jsx';
 import MovieCard from './components/MovieCard.jsx';
 import { useDebounce } from 'react-use'
+import { Client } from 'appwrite';
+import { updateSearchCount } from './appwrite.js';
 
-const API_KEY= import.meta.env.VITE_TMDB_API_KEY;
+const client = new Client();
+client.setEndpoint('https://fra.cloud.appwrite.io/v1');
 
 const App = () => {
   const[searchTerm, setsearchTerm] = useState('');
@@ -37,7 +40,8 @@ const App = () => {
         setMovies([])
       }
       setMovies(data.results)
-      console.log(data);
+      // console.log(data);
+      updateSearchCount();
 
     }catch(error){
       console.error(`Error Fetching Movies. Error Details: '${error}`);

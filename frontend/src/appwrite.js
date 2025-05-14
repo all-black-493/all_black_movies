@@ -1,0 +1,7 @@
+const PROJECT_ID=import.meta.env.VITE_APPWRITE_PROJECT_ID;
+const DATABASE_ID=import.meta.env.VITE_APPWRITE_DATABASE_ID
+const COLLECTION_ID=import.meta.env.VITE_APPWRITE_COLLECTION_ID;
+
+export const updateSearchCount = () =>{
+    console.log(`Project ${PROJECT_ID}, Database ${DATABASE_ID}, Collection ${COLLECTION_ID}`);
+}
