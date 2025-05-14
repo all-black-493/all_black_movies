@@ -38,7 +38,9 @@ const App = () => {
       }
       setMovies(data.results)
       // console.log(data);
-      updateSearchCount();
+      if(query && data.results.length>0){
+        updateSearchCount(query, data.results[0]);
+      }
 
     }catch(error){
       console.error(`Error Fetching Movies. Error Details: '${error}`);
