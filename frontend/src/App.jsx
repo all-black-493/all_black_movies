@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Search from './components/search'
 import {API_BASE_URL} from './urls.js'
 import { API_OPTIONS } from './api.js';
+import { Loadspinner } from './components/loadspinner.jsx';
 
 const API_KEY= import.meta.env.VITE_TMDB_API_KEY;
 
@@ -50,12 +51,11 @@ const App = () => {
         <Search searchTerm={searchTerm} setsearchTerm={setsearchTerm} />
         </header>
         <section className="all-movies">
+          <h2 className="mt-[40px]">Movies</h2>
           <h2>
             {loading ?
             (
-              <p className="text-white">
-                Loading ...
-              </p>
+              <Loadspinner />
             ): errorMessage ? (
               <p className="text-red-500">
                 {errorMessage}
