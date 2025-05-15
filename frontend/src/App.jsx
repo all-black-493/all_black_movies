@@ -6,6 +6,7 @@ import { Loadspinner } from './components/loadspinner.jsx';
 import MovieCard from './components/MovieCard.jsx';
 import { useDebounce } from 'react-use'
 import { getTrendingMovies, updateSearchCount } from './appwrite.js';
+import Navbar from './components/Navbar.jsx'
 
 
 const App = () => {
@@ -70,6 +71,7 @@ const App = () => {
 
   return (
     <main>
+      <Navbar />
       <div className="pattern" />
       <div className="wrapper">
         <header>
